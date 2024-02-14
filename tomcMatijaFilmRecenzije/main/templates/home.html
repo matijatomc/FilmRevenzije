@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+    <h1><a href="/">Home</a></h1>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="">Film</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
