@@ -1,5 +1,12 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def str(self):
+        return self.user.username
 
 class Film(models.Model):
     nazivFilma = models.CharField(max_length=100)
@@ -15,7 +22,7 @@ class Film(models.Model):
         return self.recenzija_set.aggregate(models.Avg('ocjena'))['ocjena__avg']
 
 class Recenzija(models.Model):
-    autorRecenzije = models.CharField(max_length=100)
+    autorRecenzije = models.ForeignKey(User, on_delete=models.CASCADE)
     recenzija = models.TextField()
     ocjena = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
