@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+
+{% block content %}
+{% for film in filmovi %}
+
+<div>
+    <h4>{{film.nazivFilma}}</h4>
+    <p>Redatelj: {{film.redateljFilma}}</p>
+    <p>Godina izlaska: {{film.godinaIzlaska}}</p>
+    <p>Žanr: {{film.zanr}}</p>
+    <p>Preporuke: {{film.preporukeFilma}}</p>
+</div>
+{% endfor %}
+{% endblock %}

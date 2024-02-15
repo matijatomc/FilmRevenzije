@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.home),
     path('signup/', views.signup_view),
     path('login/', views.login_view),
+    path('film/', views.FilmView.as_view())
 ]
