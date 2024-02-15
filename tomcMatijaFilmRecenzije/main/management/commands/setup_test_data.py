@@ -4,7 +4,7 @@ from main.models import *
 from main.factory import FilmFactory, RecenzijaFactory
 
 brojFilmova = 20
-brojRecenzija = 20
+brojRecenzija = 25
 
 class Command(BaseCommand):
     help = "Generates test data"

@@ -56,5 +56,10 @@ def login_view(request):
 
 class FilmView(ListView):
     model = Film
-    context_objest_name = 'filmovi'
+    context_object_name = 'filmovi'
     template_name = 'film.html'
+
+class RecenzijaView(ListView):
+    model = Recenzija
+    context_object_name = 'recenzije'
+    template_name = 'recenzije.html'

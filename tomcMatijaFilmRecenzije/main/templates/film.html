@@ -4,11 +4,18 @@
 {% for film in filmovi %}
 
 <div>
-    <h4>{{film.nazivFilma}}</h4>
-    <p>Redatelj: {{film.redateljFilma}}</p>
-    <p>Godina izlaska: {{film.godinaIzlaska}}</p>
-    <p>Žanr: {{film.zanr}}</p>
-    <p>Preporuke: {{film.preporukeFilma}}</p>
+    <h4>{{ film.nazivFilma }}</h4>
+    <p>Redatelj: {{ film.redateljFilma }}</p>
+    <p>Godina izlaska: {{ film.godinaIzlaska }}</p>
+    <p>Žanr: {{ film.zanr }}</p>
+    <p>Preporuke:</p>
+    <ul>
+        {% for preporuka in film.preporukeFilma.all %}
+            <li>{{ preporuka.nazivFilma }} ({{ preporuka.godinaIzlaska }})</li>
+        {% empty %}
+            <li>Nema preporuka.</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endfor %}
 {% endblock %}

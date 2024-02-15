@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+
+{% block content %}
+{% for recenzija in recenzije %}
+
+<div>
+    <h4>{{ recenzija.film }}</h4>
+    <p>Autor: {{ recenzija.autorRecenzije }}</p>
+    <p>Ocjena: {{ recenzija.ocjena }}</p>
+    <p>Recenzija:</p>
+    <p>{{ recenzija.recenzija }}</p>
+</div>
+{% endfor %}
+{% endblock %}
+
+autorRecenzije = models.ForeignKey(User, on_delete=models.CASCADE)
+recenzija = models.TextField()
+ocjena = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
+film = models.ForeignKey(Film, on_delete=models.CASCADE)
