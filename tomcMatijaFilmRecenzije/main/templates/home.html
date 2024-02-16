@@ -12,13 +12,16 @@
             <li><a href="/signup">Sign up</a></li>
             <li><a href="/login">Log in</a></li>
             <li><a href="/film">Film</a></li>
-            <li><a href="/recenzija">Recenzija</a></li>
         </ul>
         {% endblock %}
     </div>
 
     <div class="content">
         {% block content %}
+        {% if user.is_authenticated %}
+            <h2>Welcome, {{ user.username }}!</h2>
+            <li><a href="{% url 'main:logout' %}">Logout</a></li>
+        {% endif %}
         {% endblock %}
     </div>
 </body>

@@ -1,6 +1,10 @@
 {% extends 'home.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
+     <h2>Welcome, {{ user.username }}!</h2>
+    <li><a href="{% url 'main:logout' %}">Logout</a></li>
+{% endif %}
 {% for film in filmovi %}
 
 <div>
@@ -16,6 +20,8 @@
             <li>Nema preporuka.</li>
         {% endfor %}
     </ul>
+    
+    <a href="{% url 'main:recenzije' film.id %}"><button>View Reviews</button></a>
 </div>
 {% endfor %}
 {% endblock %}

@@ -63,3 +63,7 @@ class RecenzijaView(ListView):
     model = Recenzija
     context_object_name = 'recenzije'
     template_name = 'recenzije.html'
+
+    def get_queryset(self):
+        movie_id = self.kwargs['movie_id']
+        return Recenzija.objects.filter(film_id=movie_id)
