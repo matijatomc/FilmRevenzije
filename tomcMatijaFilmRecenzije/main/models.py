@@ -19,7 +19,8 @@ class Film(models.Model):
         return self.nazivFilma
 
     def Ocjena(self):
-        return self.recenzija_set.aggregate(models.Avg('ocjena'))['ocjena__avg']
+        avg_rating = self.recenzija_set.aggregate(models.Avg('ocjena'))['ocjena__avg']
+        return round(avg_rating, 1) if avg_rating is not None else None
 
 class Recenzija(models.Model):
     autorRecenzije = models.ForeignKey(User, on_delete=models.CASCADE)

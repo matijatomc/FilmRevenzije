@@ -10,5 +10,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='main:login'), name='logout'),
     path('film/', views.FilmView.as_view()),
-    path('recenzija/<int:movie_id>/', views.RecenzijaView.as_view(), name='recenzije')
+    path('film/<int:movie_id>/', views.movie_detail, name='film_detalji'),
+    path('recenzija/edit/<int:review_id>/', views.edit_review, name='edit_review'),
+    path('recenzija/<int:review_id>/delete/', views.delete_review, name='delete_review'),
 ]

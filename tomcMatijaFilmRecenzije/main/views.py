@@ -1,8 +1,9 @@
 from django.views.generic import *
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import *
+from .forms import RecenzijaForm
 
 # Create your views here.
 
@@ -58,12 +59,52 @@ class FilmView(ListView):
     model = Film
     context_object_name = 'filmovi'
     template_name = 'film.html'
+    
+def movie_detail(request, movie_id):
+    movie = get_object_or_404(Film, id=movie_id)
+    recenzije = Recenzija.objects.filter(film_id=movie_id)
 
-class RecenzijaView(ListView):
-    model = Recenzija
-    context_object_name = 'recenzije'
-    template_name = 'recenzije.html'
+    # Handle form submission
+    if request.method == 'POST':
+        form = RecenzijaForm(request.POST)
+        if form.is_valid():
+            ocjena = form.cleaned_data['ocjena']
+            recenzija_text = form.cleaned_data['recenzija']
 
-    def get_queryset(self):
-        movie_id = self.kwargs['movie_id']
-        return Recenzija.objects.filter(film_id=movie_id)
+            # Create a new review
+            Recenzija.objects.create(
+                autorRecenzije=request.user,
+                ocjena=ocjena,
+                recenzija=recenzija_text,
+                film=movie
+            )
+
+            # Redirect to the same page to avoid form resubmission on refresh
+            return redirect('main:film_detalji', movie_id=movie.id)
+    else:
+        form = RecenzijaForm()
+
+    return render(request, 'film_detalji.html', {'movie': movie, 'recenzije': recenzije, 'form': form})
+
+
+def edit_review(request, review_id):
+    review = get_object_or_404(Recenzija, id=review_id)
+
+    if request.method == 'POST':
+        form = RecenzijaForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('main:film_detalji', movie_id=review.film.id)
+    else:
+        form = RecenzijaForm(instance=review)
+
+    return render(request, 'edit_review.html', {'form': form, 'review': review})
+
+def delete_review(request, review_id):
+    review = get_object_or_404(Recenzija, id=review_id)
+
+    if request.method == 'POST':
+        review.delete()
+        return redirect('main:film_detalji', movie_id=review.film.id)
+
+    return redirect('main:film_detalji', movie_id=review.film.id)

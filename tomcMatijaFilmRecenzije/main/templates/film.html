@@ -8,20 +8,11 @@
 {% for film in filmovi %}
 
 <div>
-    <h4>{{ film.nazivFilma }}</h4>
+    <h4><a href="{% url 'main:film_detalji' film.id %}">{{ film.nazivFilma }}</a></h4>
     <p>Redatelj: {{ film.redateljFilma }}</p>
     <p>Godina izlaska: {{ film.godinaIzlaska }}</p>
     <p>Žanr: {{ film.zanr }}</p>
-    <p>Preporuke:</p>
-    <ul>
-        {% for preporuka in film.preporukeFilma.all %}
-            <li>{{ preporuka.nazivFilma }} ({{ preporuka.godinaIzlaska }})</li>
-        {% empty %}
-            <li>Nema preporuka.</li>
-        {% endfor %}
-    </ul>
-    
-    <a href="{% url 'main:recenzije' film.id %}"><button>View Reviews</button></a>
+    <p>Average Review Score: {{ film.Ocjena|default:0 }}</p>
 </div>
 {% endfor %}
 {% endblock %}
