@@ -108,3 +108,7 @@ def delete_review(request, review_id):
         return redirect('main:film_detalji', movie_id=review.film.id)
 
     return redirect('main:film_detalji', movie_id=review.film.id)
+
+def recenzije(request):
+    recenzije = Recenzija.objects.filter(autorRecenzije=request.user)
+    return render(request, 'recenzije.html', {'recenzije': recenzije})

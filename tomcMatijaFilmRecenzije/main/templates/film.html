@@ -1,12 +1,7 @@
 {% extends 'home.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-     <h2>Welcome, {{ user.username }}!</h2>
-    <li><a href="{% url 'main:logout' %}">Logout</a></li>
-{% endif %}
-{% for film in filmovi %}
-
+{% for film in filmovi%}
 <div>
     <h4><a href="{% url 'main:film_detalji' film.id %}">{{ film.nazivFilma }}</a></h4>
     <p>Redatelj: {{ film.redateljFilma }}</p>
