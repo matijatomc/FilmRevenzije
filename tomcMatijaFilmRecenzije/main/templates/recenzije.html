@@ -4,30 +4,26 @@
 <h2>Moje recenzije</h2>
 {% for recenzija in recenzije %}
     <li>
-        <h4>{{ recenzija.film.nazivFilma }}</h4>
+        <h4><a href="{% url 'main:film_detalji' recenzija.film.id %}">{{ recenzija.film.nazivFilma }}</h4></a>
         <p>Autor: {{ recenzija.autorRecenzije }}</p>
         <p>Ocjena: {{ recenzija.ocjena }}</p>
         <p>Recenzija: {{ recenzija.recenzija }}</p>
-        {% if user.is_authenticated and recenzija.autorRecenzije == user %}
-            <form method="post" action="{% url 'main:edit_review' recenzija.id %}" style="display: none;">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save Changes</button>
-            </form>
-            <button class="edit-button" data-review-id="{{ recenzija.id }}">Edit Review</button>
-            
-            <!-- Delete Review Confirmation -->
-            <form id="delete-review-form-{{ recenzija.id }}" method="post" action="{% url 'main:delete_review' recenzija.id %}" style="display: none;">
-                {% csrf_token %}
-                <button type="submit">Delete Review</button>
-            </form>
-            <button class="delete-button" data-review-id="{{ recenzija.id }}">Delete Review</button>
-        {% endif %}
+        <form method="post" action="{% url 'main:edit_review' recenzija.id %}" style="display: none;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Spremi promjene</button>
+        </form>
+        <button class="edit-button" data-review-id="{{ recenzija.id }}">Uredi</button>
+        
+        <form id="delete-review-form-{{ recenzija.id }}" method="post" action="{% url 'main:delete_review' recenzija.id %}" style="display: none;">
+            {% csrf_token %}
+            <button type="submit">Izbriši</button>
+        </form>
+        <button class="delete-button" data-review-id="{{ recenzija.id }}">Izbriši</button>
     </li>
 {% endfor %}
 
 <script>
-    // Add a click event listener to edit buttons for the user's own reviews
     document.querySelectorAll('.edit-button').forEach(function(button) {
         button.addEventListener('click', function() {
             var reviewId = this.getAttribute('data-review-id');
@@ -36,11 +32,10 @@
         });
     });
 
-    // Add a click event listener to delete buttons for the user's own reviews
     document.querySelectorAll('.delete-button').forEach(function(button) {
         button.addEventListener('click', function() {
             var reviewId = this.getAttribute('data-review-id');
-            var confirmation = confirm("Are you sure you want to delete this review?");
+            var confirmation = confirm("Jeste li sigurni da želite izbrisat recenziju?");
             if (confirmation) {
                 document.getElementById('delete-review-form-' + reviewId).submit();
             }

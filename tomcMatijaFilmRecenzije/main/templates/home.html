@@ -22,7 +22,7 @@
     </div>
 
     {% if user.is_authenticated %}
-        <h2>Welcome, {{ user.username }}!</h2>
+        <h2>Dobrodošli, {{ user.username }}!</h2>
         <li><a href="{% url 'main:logout' %}">Logout</a></li>
     {% endif %}
 
