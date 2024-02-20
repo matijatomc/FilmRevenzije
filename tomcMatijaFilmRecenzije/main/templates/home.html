@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <h1><a href="/">Home</a></h1>
+    <h1><a href="/">Početna</a></h1>
     <div id="sidebar">
         {% block sidebar %}
         <ul>
@@ -13,9 +13,9 @@
                 <li><a href="/signup">Sign up</a></li>
                 <li><a href="/login">Log in</a></li>
             {% endif %}
-            <li><a href="/film">Film</a></li>
             {% if user.is_authenticated %}
-                <li><a href="/recenzije">Moje recenzije</a></li>
+                <li><a href="/film">Film</a></li>
+                <li><a href="/recenzije">Moje recenzije</a></li>   
             {% endif %}
         </ul>
         {% endblock %}
