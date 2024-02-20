@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h3><a href="/film">Back To Movies</a></h3>
+    <h3><a href="/film">Nazad na početnu</a></h3>
     <h1>{{ movie.nazivFilma }}</h1>
     <p>Redatelj: {{ movie.redateljFilma }}</p>
     <p>Godina izlaska: {{ movie.godinaIzlaska }}</p>
@@ -30,7 +30,7 @@
 
     <h3>Recenzije</h3>
     {% for recenzija in recenzije %}
-    <li>
+    <div>
         <p>Autor: {{ recenzija.autorRecenzije }}</p>
         <p>Ocjena: {{ recenzija.ocjena }}</p>
         <p>Recenzija: {{ recenzija.recenzija }}</p>
@@ -48,7 +48,7 @@
             </form>
             <button class="delete-button" data-review-id="{{ recenzija.id }}">Izbriši</button>
         {% endif %}
-    </li>
+    </div>
     {% endfor %}
 </body>
 

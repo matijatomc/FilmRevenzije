@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Moje recenzije</h2>
 {% for recenzija in recenzije %}
-    <li>
+    <div>
         <h4><a href="{% url 'main:film_detalji' recenzija.film.id %}">{{ recenzija.film.nazivFilma }}</h4></a>
         <p>Autor: {{ recenzija.autorRecenzije }}</p>
         <p>Ocjena: {{ recenzija.ocjena }}</p>
@@ -20,7 +20,7 @@
             <button type="submit">Izbriši</button>
         </form>
         <button class="delete-button" data-review-id="{{ recenzija.id }}">Izbriši</button>
-    </li>
+    </div>
 {% endfor %}
 
 <script>

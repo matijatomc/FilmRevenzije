@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
 </head>
-<body>
+<body align="center">
+    <h1 align="left"><a href="/">Početna</a></h1>
     <h2>Sign Up</h2>
     <form method="post">
         {% csrf_token %}
         {% if message %}
             <p>{{ message }}</p>
         {% endif %}
-        <label for="username">Username:</label><br>
+        <label for="username">Korisniško ime:</label><br>
         <input type="text" id="username" name="username" required><br>
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" required><br>
-        <label for="password">Password:</label><br>
+        <label for="password">Lozinka:</label><br>
         <input type="password" id="password" name="password" required><br>
-        <label for="password2">Confirm Password:</label><br>
+        <label for="password2">Potvrdite lozinku:</label><br>
         <input type="password" id="password2" name="password2" required><br><br>
         <button type="submit">Sign Up</button> 
     </form>
     <a href="/login">Log in</a>
-    <h1><a href="/">Home</a></h1>
 </body>
 </html>

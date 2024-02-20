@@ -19,15 +19,15 @@ def signup_view(request):
         password2 = request.POST.get('password2')
 
         if password != password2:
-            context = {"message":"Passwords do not match"}
+            context = {"message":"Lozinke se ne podudaraju"}
             return render(request, 'signup.html', context)
 
         if User.objects.filter(username=username).exists():
-            context = {"message":"Username already exists"}
+            context = {"message":"Korisničko ime već postoji"}
             return render(request, 'signup.html', context)
 
         if User.objects.filter(email=email).exists():
-            context = {"message":"Email already exists"}
+            context = {"message":"Email se več koristi"}
             return render(request, 'signup.html', context)
 
         user = User.objects.create_user(username=username, email=email, password=password)
@@ -51,7 +51,7 @@ def login_view(request):
             login(request, user)
             return redirect('/')
         else:
-            message = "Check your credentials. We didn't find a match!"
+            message = "Korisničko ime ili lozinka nisu ispravni"
 
     context={'message':message}
     return render(request, 'login.html', context)
